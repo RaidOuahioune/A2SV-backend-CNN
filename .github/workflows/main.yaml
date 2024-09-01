@@ -1,0 +1,37 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push CV Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./cv  # Path to the cv directory containing the Dockerfile
+          push: true
+          tags: raidlol/cv-server:latest  # Replace with your desired tag
+      -
+        name: Build and push LLM Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./llm  # Path to the llm directory containing the Dockerfile
+          push: true
+          tags: raidlol/llm-server:latest  # Replace with your desired tag
