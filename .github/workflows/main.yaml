@@ -21,21 +21,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
-      - name: List repository files
-        run: ls -R
-  
+ 
       -
         name: Build and push CV Docker image
         uses: docker/build-push-action@v5
         with:
-          context: cv  # Path to the cv directory containing the Dockerfile
+          context:  "{{defaultContext}}:cv" # Path to the cv directory containing the Dockerfile
           push: true
           tags: raidlol/cv-server:latest  # Replace with your desired tag
       -
         name: Build and push LLM Docker image
         uses: docker/build-push-action@v5
         with:
-          context: llm  # Path to the llm directory containing the Dockerfile
+          context:  "{{defaultContext}}:llm"  # Path to the llm directory containing the Dockerfile
           push: true
           tags: raidlol/llm-server:latest  # Replace with your desired tag
