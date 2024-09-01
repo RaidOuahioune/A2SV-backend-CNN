@@ -2,6 +2,7 @@ from langchain_huggingface import HuggingFaceEndpoint
 from langchain_core.prompts import PromptTemplate
 
 from utils.config.get_hgf_pass import getpass
+import os
 
 from utils.llm_utils import (
     description_prompt_builder_from_response,
@@ -15,8 +16,7 @@ from utils.llm_utils import (
 )
 
 from utils.config.llm_config import llm_config
-
-HUGGINGFACEHUB_API_TOKEN = "<YOUR TOKEN>"
+HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 
 def ask_llm(question):
