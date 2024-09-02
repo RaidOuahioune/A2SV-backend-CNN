@@ -5,6 +5,7 @@ from utils.llama_handler import ask_llm_handler, get_tip_from_llm
 from errors.non_formatted_input import input_non_valid_error
 from errors.status import status
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -19,7 +20,7 @@ def detect():
     try:
         # Forward the file to the cv:5001/detect endpoint
         files = {"file": (file.filename, file.stream, file.content_type)}
-        cv_response = requests.post("http://cv:5001/detect", files=files)
+        cv_response = requests.post("http://cv:3000/detect", files=files)
         cv_response.raise_for_status()
         response = cv_response.json()
     except requests.RequestException as e:
@@ -54,6 +55,8 @@ def get_tip():
     return make_response(
         jsonify({"data": {"llm_response": response}}), status["success"]
     )
+    print(os.getenv("HUGGINGFACEHUB_API_TOKEN"))
+    return make_response( os.getenv("HUGGINGFACEHUB_API_TOKEN"))
 
 
 if __name__ == "__main__":

@@ -4,12 +4,14 @@ version: "3.8"
 services:
   llm:
     container_name: llm
+    environment:
+      - HUGGINGFACEHUB_API_TOKEN=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
     build:
       context: ./llm
       dockerfile: Dockerfile
     ports:
       
-      - "5000:5000"
+      - "5000:3000"
     volumes:
       - ./llm:/usr/src/app
   cv:
@@ -17,9 +19,10 @@ services:
     build:
       context: ./cv
       dockerfile: Dockerfile
-
+    
     ports:
-      - "5001:5001"
+      - "5001:3000"
+
 
     volumes:
       - ./cv:/usr/src/app

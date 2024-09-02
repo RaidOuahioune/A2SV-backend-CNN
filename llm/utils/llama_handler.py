@@ -19,6 +19,8 @@ from utils.config.llm_config import llm_config
 HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
 
+
+
 def ask_llm(question):
     prompt = PromptTemplate.from_template(llm_config["template"])
 
